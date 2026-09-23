@@ -7,7 +7,8 @@
       "stop_loss_2": 159.68,
       "promotion_line": null,
       "region": "US",
-      "addon_level": 188.37
+      "addon_level": 188.37,
+      "entry_reference_price": 169.53
     },
     {
       "symbol": "ANET",
@@ -42,7 +43,8 @@
       "stop_loss_1": 928.86,
       "stop_loss_2": 885.39,
       "promotion_line": 989.96,
-      "region": "US"
+      "region": "US",
+      "addon_level": 1036.13
     },
     {
       "symbol": "SNOW",
@@ -59,7 +61,7 @@
       "stop_loss_2": 196.13,
       "promotion_line": null,
       "region": "US",
-      "addon_level": null
+      "addon_level": 260.83
     },
     {
       "symbol": "LITE",
@@ -149,7 +151,8 @@
       "region": "US",
       "stop_loss_1": 265.02,
       "stop_loss_2": 245.9,
-      "promotion_line": 353.9999
+      "promotion_line": 353.9999,
+      "addon_level": 361.67
     },
     {
       "symbol": "TTMI",
@@ -194,7 +197,8 @@
       "region": "US",
       "stop_loss_1": 213.48,
       "stop_loss_2": 202.21,
-      "promotion_line": 242.93
+      "promotion_line": 242.93,
+      "addon_level": 255.46
     }
   ],
   "account2_open_slots": 0
