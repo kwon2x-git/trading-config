@@ -514,15 +514,15 @@ def get_news_headlines_batch(symbols: list, phase: str, limit_per_symbol: int = 
 def check_price_thresholds(item: dict, price: float, state: dict, phase: str):
     """
     손절선 체크 전용(승격/재진입/2차추매는 check_breakout()/check_single_confirm()이 별도 처리).
-    2026-09-16 재설계(사용자 지정 규칙):
+    2026-09-23 재설계(사용자 지정 규칙, 2026-09-16판 대체):
     - 근접(1.5% 이내)은 모든 손절선에 대해 phase 무관하게 항상 알림.
-    - 2차 손절 하회: 계좌 구분 없이 확정 후 매 실행마다 계속 알림(집행 전까지).
-    - 1차 손절 하회: 계좌2 종목은 집행 확인 전까지 계속 알림. 그 외(계좌4/ISA/IRP 등)는
-      장마감 1회 + 장전 1회, 딱 2번만 알리고 이후 억제(회복해서 다시 하회하면 카운트 리셋).
+    - 1차·2차 손절 하회 모두, 계좌 구분 없이 확정 후 매 실행마다 계속 알림(집행 전까지 상한 없음).
+      집행 확인은 사용자가 계좌현황을 올려주거나 대화로 알려줄 때 처리 — 그 전까지는 계속 알림.
+    - 손절 조건이 한 번 만족됐어도 이후 가격이 다시 선 위로 회복하면 트리거는 리셋된다
+      (승격선과 반대 방향: 승격은 넘으면 자격이 유지되지만, 손절은 회복하면 다시 하회해야 재트리거).
     """
     alerts = []
     symbol = item["symbol"]
-    account = item.get("account", "")
     sl1 = item.get("stop_loss_1")
     sl2 = item.get("stop_loss_2")
     price_label = "현재가" if item.get("market") == "crypto" else "종가"
@@ -533,21 +533,7 @@ def check_price_thresholds(item: dict, price: float, state: dict, phase: str):
         alerts.append(f"🔴 {symbol}: 2차 손절선({sl2}) 하회 — {price_label} {price} — 정규장 손절 집행 필요")
     elif sl1 is not None and price <= sl1:
         touched_level = 1
-        key1 = f"stop1cap::{symbol}::{sl1}"
-        if account == "계좌2":
-            alerts.append(f"🔴 {symbol}: 1차 손절선({sl1}) 하회 — {price_label} {price} — 정규장 50% 손절 집행 필요")
-        else:
-            stage = state.get(key1, {}).get("stage")
-            if stage is None:
-                state[key1] = {"stage": "alerted1"}
-                alerts.append(f"🔴 {symbol}: 1차 손절선({sl1}) 하회 — {price_label} {price} — 정규장 50% 손절 집행 필요")
-            elif stage == "alerted1":
-                state[key1]["stage"] = "alerted2"
-                alerts.append(f"🔴 {symbol}: 1차 손절선({sl1}) 하회 — {price_label} {price} — 정규장 50% 손절 집행 필요(재알림, 이후 억제)")
-            # stage == 'alerted2'면 이미 2번 다 알렸으므로 조용히 억제
-
-    if sl1 is not None and price > sl1:
-        state.pop(f"stop1cap::{symbol}::{sl1}", None)  # 회복 시 카운트 리셋 — 다음 하회 때 다시 2번부터
+        alerts.append(f"🔴 {symbol}: 1차 손절선({sl1}) 하회 — {price_label} {price} — 정규장 50% 손절 집행 필요")
 
     # 근접 — phase 무관, 항상 노출
     if touched_level != 2 and sl2 is not None and price <= sl2 * (1 + PROXIMITY_PCT / 100):
@@ -609,14 +595,14 @@ def check_breakout(item: dict, price: float, state: dict, phase: str, level_fiel
 
 def check_single_confirm(item: dict, price: float, state: dict, phase: str, level_field: str, label: str, execution_required: bool = False):
     """
-    승격(2번계좌) / 재진입 전용 — 익일 유지 요건 없음(2026-09-01·09-07 개정, 2026-09-16 재확인).
-    2026-09-16 재설계(사용자 지정 규칙):
-    - execution_required=True(예: 슬롯이 열려 실제 집행이 필요한 승격 후보, 재진입 신호)면
-      집행 확인 전까지 매 실행마다 계속 알림(상태 없이 매번 재평가).
-    - execution_required=False(예: 슬롯이 없어 지금 당장 집행할 수 없는 승격 후보)면
-      돌파 확정 시점에 **딱 1번만** 참고 알림 후 억제(익일 유지 확인 자체가 불필요한 규칙이므로
-      다음날 재알림 없음). 재하강 후 다시 돌파하면 다시 1번.
-    - 근접(1.5%)은 phase·execution_required와 무관하게 항상 노출.
+    승격(2번계좌) / 재진입 전용 — 익일 유지 요건 없음(2026-09-01·09-07 개정).
+    2026-09-23 재설계(사용자 지정 규칙, 손절선과 대칭 구조로 통일):
+    - 승격선을 상회하는 한 자격이 유지된 것으로 보고, 매 실행마다 계속 알림(손절과 동일한 반복 방식).
+    - 가격이 다시 승격선 아래로 내려가면 알림이 사라짐(자격 리셋 — 손절과 반대 방향: 손절은
+      회복하면 리셋되고 승격은 하회하면 리셋된다는 원칙을 그대로 반영).
+    - execution_required=True(슬롯이 열려 실제 집행이 필요한 상태)면 🔴(집행하세요),
+      False(지금 당장 집행할 슬롯이 없는 상태)면 🟡(참고, 집행대상 아님)로 표시만 다름 — 반복 여부는 동일.
+    - 근접(1.5%)은 항상 노출.
     """
     level = item.get(level_field)
     if level is None:
@@ -627,17 +613,11 @@ def check_single_confirm(item: dict, price: float, state: dict, phase: str, leve
 
     if price > level:
         if execution_required:
-            alerts.append(f"🔴 {symbol}: {label}({level}) 돌파 확정 — 집행하세요")
+            alerts.append(f"🔴 {symbol}: {label}({level}) 상회 중 — {price_label} {price} — 집행하세요")
         else:
-            key = f"singleconfirm2::{symbol}::{level_field}::{level}"
-            if key not in state:
-                state[key] = {"stage": "alerted"}
-                alerts.append(f"🟡 {symbol}: {label}({level}) 종가 돌파 확정(참고, 현재 집행대상 아님, 익일 재알림 없음) — 종가 {price}")
-            # 이미 알렸으면 조용히 억제
-    else:
-        state.pop(f"singleconfirm2::{symbol}::{level_field}::{level}", None)  # 재하강 — 카운트 리셋
-        if price >= level * (1 - PROXIMITY_PCT / 100):
-            alerts.append(f"⚪ {symbol}: {label}({level}) 근접 — {price_label} {price} — 모니터링 필요")
+            alerts.append(f"🟡 {symbol}: {label}({level}) 상회 중(참고, 현재 집행대상 아님) — {price_label} {price}")
+    elif price >= level * (1 - PROXIMITY_PCT / 100):
+        alerts.append(f"⚪ {symbol}: {label}({level}) 근접 — {price_label} {price} — 모니터링 필요")
 
     return alerts
 
