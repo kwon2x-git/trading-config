@@ -199,6 +199,26 @@
       "stop_loss_2": 202.21,
       "promotion_line": 242.93,
       "addon_level": 255.46
+    },
+    {
+      "symbol": "SOXL",
+      "account": "계좌3",
+      "market": "stock",
+      "region": "US",
+      "stop_loss_1": 131.42,
+      "stop_loss_2": 121.18,
+      "promotion_line": null
+    },
+    {
+      "symbol": "SOXX",
+      "account": "계좌3(SOXL 집행용 감시전용, 보유 아님)",
+      "market": "stock",
+      "region": "US",
+      "stop_loss_1": null,
+      "stop_loss_2": null,
+      "promotion_line": null,
+      "addon_level": 581.7,
+      "note": "SOXX가 이 값을 종가돌파+익일유지하면 SOXL을 그 시점 실시간가로 2차 매수 집행"
     }
   ],
   "account2_open_slots": 0
