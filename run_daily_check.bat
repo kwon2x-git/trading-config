@@ -1,18 +1,18 @@
 @echo off
-REM run_daily_check.bat (2026-09-23 v2 -- curl 기반으로 변경, 오류 확인 가능)
+REM run_daily_check.bat (2026-09-23 v3 -- ASCII only, encoding issue fixed)
 cd /d C:\trading
 
-echo [다운로드 시도] daily_check.py 최신본...
+echo [download] fetching latest daily_check.py from GitHub...
 curl.exe -sS -f -L -o daily_check.py.new "https://raw.githubusercontent.com/kwon2x-git/trading-config/main/daily_check.py"
 if %ERRORLEVEL% EQU 0 (
     move /y daily_check.py.new daily_check.py >nul
-    echo [OK] 최신본 다운로드 및 교체 완료
+    echo [OK] daily_check.py updated
 ) else (
-    echo [경고] 다운로드 실패^(코드 %ERRORLEVEL%^) - 기존 로컬 daily_check.py로 계속 진행
+    echo [WARN] download failed, code=%ERRORLEVEL%, using existing local daily_check.py
     if exist daily_check.py.new del daily_check.py.new
 )
 
 python daily_check.py %*
 
-REM 스케줄러가 아닌 더블클릭으로 직접 테스트할 때만 아래 줄 주석 해제해서 창이 안 닫히게 하세요.
+REM Uncomment the line below only when double-clicking manually to keep the window open.
 REM pause
