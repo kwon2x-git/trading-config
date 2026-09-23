@@ -474,7 +474,8 @@ def get_news_headlines_batch(symbols: list, phase: str, limit_per_symbol: int = 
     for symbol in symbols:
         try:
             url = f"https://feeds.finance.yahoo.com/rss/2.0/headline?s={symbol}&region=US&lang=en-US"
-            r = requests.get(url, timeout=10)
+            headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36"}
+            r = requests.get(url, headers=headers, timeout=10)
             if r.status_code != 200:
                 print(f"[야후 뉴스 실패] {symbol} {r.status_code}")
                 continue
