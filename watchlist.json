@@ -1,0 +1,201 @@
+{
+  "watchlist": [
+    {
+      "symbol": "PLTR",
+      "account": "계좌2",
+      "stop_loss_1": null,
+      "stop_loss_2": 159.68,
+      "promotion_line": null,
+      "region": "US",
+      "addon_level": 188.37
+    },
+    {
+      "symbol": "ANET",
+      "account": "계좌2",
+      "stop_loss_1": 185.2,
+      "stop_loss_2": 178.01,
+      "promotion_line": null,
+      "region": "US"
+    },
+    {
+      "symbol": "NOW",
+      "account": "계좌2",
+      "stop_loss_1": null,
+      "stop_loss_2": 129.35,
+      "promotion_line": null,
+      "region": "US",
+      "addon_level": 151.45
+    },
+    {
+      "symbol": "IBM",
+      "account": "계좌4",
+      "stop_loss_1": 230.79,
+      "stop_loss_2": 224.55,
+      "promotion_line": 241.8,
+      "region": "US",
+      "promo_break_date": "2026-09-11",
+      "promo_break_price": 243.29
+    },
+    {
+      "symbol": "MU",
+      "account": "계좌4",
+      "stop_loss_1": 928.86,
+      "stop_loss_2": 885.39,
+      "promotion_line": 989.96,
+      "region": "US"
+    },
+    {
+      "symbol": "SNOW",
+      "account": "계좌4",
+      "stop_loss_1": 325.06,
+      "stop_loss_2": 309.35,
+      "promotion_line": 362.52,
+      "region": "US"
+    },
+    {
+      "symbol": "CRWD",
+      "account": "계좌2",
+      "stop_loss_1": 209.97,
+      "stop_loss_2": 196.13,
+      "promotion_line": null,
+      "region": "US",
+      "addon_level": null
+    },
+    {
+      "symbol": "LITE",
+      "account": "계좌4",
+      "stop_loss_1": 848.39,
+      "stop_loss_2": 778.3,
+      "promotion_line": 999.675,
+      "region": "US"
+    },
+    {
+      "symbol": "CRDO",
+      "account": "계좌4",
+      "stop_loss_1": 149.96,
+      "stop_loss_2": 137.0,
+      "promotion_line": 244.46,
+      "region": "US"
+    },
+    {
+      "symbol": "418670",
+      "account": "ISA",
+      "market": "stock",
+      "stop_loss_1": 15220,
+      "stop_loss_2": 14480,
+      "promotion_line": null,
+      "region": "KR"
+    },
+    {
+      "symbol": "442580",
+      "account": "ISA",
+      "market": "stock",
+      "stop_loss_1": 95200,
+      "stop_loss_2": 90800,
+      "promotion_line": null,
+      "region": "KR"
+    },
+    {
+      "symbol": "487230",
+      "account": "ISA",
+      "market": "stock",
+      "stop_loss_1": 17980,
+      "stop_loss_2": 17350,
+      "promotion_line": null,
+      "region": "KR"
+    },
+    {
+      "symbol": "122090",
+      "account": "IRP",
+      "market": "stock",
+      "stop_loss_1": 77600,
+      "stop_loss_2": 74100,
+      "promotion_line": null,
+      "region": "KR"
+    },
+    {
+      "symbol": "0162Z0",
+      "account": "IRP",
+      "market": "stock",
+      "stop_loss_1": 13050,
+      "stop_loss_2": 12670,
+      "promotion_line": null,
+      "region": "KR"
+    },
+    {
+      "symbol": "GOOGL",
+      "account": "계좌1",
+      "market": "stock",
+      "region": "US",
+      "stop_loss_1": null,
+      "stop_loss_2": null,
+      "promotion_line": null,
+      "dip_addon_level": 330
+    },
+    {
+      "symbol": "NVDA",
+      "account": "계좌1",
+      "market": "stock",
+      "region": "US",
+      "stop_loss_1": null,
+      "stop_loss_2": null,
+      "promotion_line": null,
+      "dip_addon_level": 200
+    },
+    {
+      "symbol": "ALAB",
+      "account": "계좌4",
+      "market": "stock",
+      "region": "US",
+      "stop_loss_1": 265.02,
+      "stop_loss_2": 245.9,
+      "promotion_line": 353.9999
+    },
+    {
+      "symbol": "TTMI",
+      "account": "계좌4",
+      "market": "stock",
+      "region": "US",
+      "stop_loss_1": 106.24,
+      "stop_loss_2": 98.2,
+      "promotion_line": 133.77
+    },
+    {
+      "symbol": "TER",
+      "account": "계좌4",
+      "market": "stock",
+      "region": "US",
+      "stop_loss_1": 339.14,
+      "stop_loss_2": 318.86,
+      "promotion_line": 444.17
+    },
+    {
+      "symbol": "DXCM",
+      "account": "계좌4",
+      "market": "stock",
+      "region": "US",
+      "stop_loss_1": 82.32,
+      "stop_loss_2": 79.81,
+      "promotion_line": 92.59
+    },
+    {
+      "symbol": "APH",
+      "account": "계좌4",
+      "market": "stock",
+      "region": "US",
+      "stop_loss_1": 71.74,
+      "stop_loss_2": 68.99,
+      "promotion_line": 89.26
+    },
+    {
+      "symbol": "DDOG",
+      "account": "계좌4",
+      "market": "stock",
+      "region": "US",
+      "stop_loss_1": 213.48,
+      "stop_loss_2": 202.21,
+      "promotion_line": 242.93
+    }
+  ],
+  "account2_open_slots": 0
+}
