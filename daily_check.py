@@ -82,7 +82,8 @@ SMTP_SERVER = os.environ.get("SMTP_SERVER", "smtp.gmail.com")
 SMTP_PORT = int(os.environ.get("SMTP_PORT", "587"))
 
 WATCHLIST_FILE = os.path.join(os.path.dirname(__file__), "watchlist.json")
-WATCHLIST_GIST_URL = "https://gist.githubusercontent.com/kwon2x-git/fe73341e32ade12b81c546619118f36d/raw/watchlist.json"
+# 2026-09-23: Gist에서 trading-config 레포로 이전 (원칙문서·대시보드·코드까지 한 레포로 통합 관리)
+WATCHLIST_GIST_URL = "https://raw.githubusercontent.com/kwon2x-git/trading-config/main/watchlist.json"
 ALERT_STATE_FILE = os.path.join(os.path.dirname(__file__), "alert_state.json")
 
 
