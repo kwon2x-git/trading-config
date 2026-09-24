@@ -20,12 +20,13 @@
     },
     {
       "symbol": "NOW",
-      "account": "계좌2",
+      "account": "계좌4",
       "stop_loss_1": null,
       "stop_loss_2": 129.35,
       "promotion_line": null,
       "region": "US",
-      "addon_level": 151.45
+      "addon_level": 151.45,
+      "note": "2026-09-24 계좌2에서 강등(승격 후 2차 미완성 상태 1차손절) -- 기존 stop_loss_2/addon_level은 계좌2 시절 값 그대로 이월, 재진입용 신규 승격선 재계산 필요"
     },
     {
       "symbol": "IBM",
